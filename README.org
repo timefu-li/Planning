@@ -1,0 +1,16 @@
+* Timeful.li
+
+Timeful.li (Pronounced Timefully) is an app that tracks your life actions fully.
+
+** Things I've Learnt
+
+*** SwiftUI
+- https://www.youtube.com/watch?v=57m7pJsvbwc
+- Views in SwiftUI are like components in other frameworks.
+  - Everything is a view.
+- Instead of exporting functions like in other frameworks, Swift is declarative and uses structs to structure layouts.
+  - SwiftUI enjoys a functional style paradigm. Methods called on views called modifiers allow you to modify the aesthetic of said View. These methods return the modified object so can be chained in a functional way.
+- You should use MVVM in your product to seperate display and data code.
+  - A viewmodel is kind of like an interface + usestate declarations, it defines the input "props" and also what their initial value is. This is past onto the main View struct in which only handles the rendering and interactivity not data.
+  - https://www.youtube.com/watch?v=7S6iEmHICkQ
+  - In the view model class, we can make standardised functions such as "update" and function overloading for each variable type to handle them as appropriate.
