@@ -2,14 +2,127 @@
 
 Timeful.li (Pronounced Timefully) is an app that tracks your life actions fully.
 
+Timeful.li is inspired by the works of https://github.com/Medvedev91/timeto.me
+
+Timeful.li is designed to expand on the idea of timeto.me with server function/API for cross platform, syncing, collaboration and more.
+
+** Week 1 Goal
+
+- Produce MVP
+  - Simple frontend mobile app following SwiftUI design not custom for now.
+  - Backend App
+    - Built ontop of Vapor
+  - Server Mode Only
+
+- Welcome screen to input API URL of your server instance.
+- Home screen with: 
+  - Timer
+  - List of due tasks for that day
+  - List of recently/most popular tasks
+  - Toolbar at bottom
+    - Add new task button, takes us to the tasks screen (In the future I would like this to be a menu you could slide up gesture to get to easily)
+    - Categories
+    - Statistics
+- Tasks Screen:
+  - List/Card hybrid with tasks you can press on to set as designated task.
+  - Seperate tasks by category.
+  - Add task button
+  - Add category button
+- New Task Screen:
+  - Task name
+  - Task category (Plus button inside textbox to the right to add a new category)
+  - Add button
+  - Press and hold to edit task
+- Edit Task Screen:
+  - Task name
+  - Task category (Plus button inside textbox to the right to add a new category)
+  - Save
+  - Discard
+- Categories Screen:
+  - Basically same as tasks screen but for categories
+- New Category Screen:
+  - Category Name
+  - Optional Category Emoji
+  - Category Colour (Initially set randomly with no conflicting)
+  - Add category button
+  - Add button
+- Statistics Screen:
+  - Pi Chart showing how much time spent in each task
+    - Day
+    - Week
+    - Month
+    - Year
+    - All unlogged days just marked as unlogged time
+
+** Core Ideas
+- Homepage Customisability
+  - Toggle most popular tasks
+  - Toggle due tasks
+  - Configure due tasks
+    - Show overdue tasks
+    - Show due/overdue tasks only for said:
+      - Day
+      - Week
+      - Month
+      - Year
+- The add task screen will be a gesture swiping up from the home screen
+  - All other options will be available as a toolbar at the bottom
+- Press and hold to move category cards in the add tasks menu around
+- If a user completes a task early, we can keep track of this
+  - If a user completes a task early still has several hours/a user specified time amount on the clock due. Assume mistake and do not log.
+- If a user adds a task and switches to another within 30 second/a user specified time amount. Assume mistake and do not log.
+- Set an alarm to notify user when task goes over schedule + user specified time buffer and repeat every specified time buffer amount
+- Custom behaviours for each task can be configured.
+  - Independent complete task too early detect buffers.
+  - Independent task switch too quickly detect buffers.
+  - Independent going over schedule + buffer detect alarm frequency.
+- Server Mode Behaviour
+  - App sends timestamp and name of new task to server
+  - On App
+- 24 Hour Timing
+  - Local Mode Behaviour
+    - Take timestamps of current running task(s) state on app minimise/close. Stop the timer.
+    - Restart the timer at the current clock time - timestamp end time to figure out how long it has been without having to have a constantly running timer.
+- Backend
+  - Vapor provides multiple other tooling recommendations we could potentially use:
+    - Fluent - For SQL (It's an ORM)
+    - JWT - JSON Web Tokens
+    - Leaf - HTML templating
+
+** Extension Ideas
+- "Temporal Tasks"
+  - Tasks that can be configured to run at specific intervals on specific days
+  - Once task is acknowledged and started by user, it runs alongside the main tasks and then is automatically stopped when time configured is finished
+  - Can be denied and then is not run
+  - Good for reminders, screen breaks, drink reminders, posture reminders etc.
+  - In the tasks screen, have a little icon to the right (Maybe a lightning bolt) to just show its a temporal task
+- Multiple tasks running alongside eachother support
+  - Can configure "synergetic" categories or tasks that will allow them to run and be tracked alongside eachother
+- Fallback to local mode when no internet
+  - Will start keeping track of a diff of the local state compared to last synced state. Local diff to be uploaded to backend when reconnected.
+- Timeto.me Support
+  - Import
+  - Export (May be limited due to extended functionality, warn user)
+
+** API Design
+
+- https://api.domain-name
+  - /task
+    - GET (General retrieval of data)
+    - POST (Add new task)
+    - PATCH (Update task)
+    - PUT (EXTENSION - Sync Data if network loss)
+
 ** Things I've Learnt
 
 *** SwiftUI
+- https://www.youtube.com/watch?v=4-Q14fCm-VE
 - https://www.youtube.com/watch?v=57m7pJsvbwc
 - Views in SwiftUI are like components in other frameworks.
   - Everything is a view.
 - Instead of exporting functions like in other frameworks, Swift is declarative and uses structs to structure layouts.
   - SwiftUI enjoys a functional style paradigm. Methods called on views called modifiers allow you to modify the aesthetic of said View. These methods return the modified object so can be chained in a functional way.
+- Equivalent to usestates is declaring a variable as @State
 - You should use MVVM in your product to seperate display and data code.
   - A viewmodel is kind of like an interface + usestate declarations, it defines the input "props" and also what their initial value is. This is past onto the main View struct in which only handles the rendering and interactivity not data.
   - https://www.youtube.com/watch?v=7S6iEmHICkQ
