@@ -1,10 +1,10 @@
-* Timeful.li
+* Timefu.li
 
-Timeful.li (Pronounced Timefully) is an app that tracks your life actions fully.
+Timefu.li (Pronounced Time-fu or Timefully) is an app that tracks your life actions fully.
 
-Timeful.li is inspired by the works of https://github.com/Medvedev91/timeto.me
+Timefu.li is inspired by the works of https://github.com/Medvedev91/timeto.me
 
-Timeful.li is designed to expand on the idea of timeto.me with server function/API for cross platform, syncing, collaboration and more.
+Timefu.li is designed to expand on the idea of timeto.me with server function/API for cross platform, syncing, collaboration and more.
 
 ** Week 1 Goal
 
